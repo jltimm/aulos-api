@@ -4,9 +4,9 @@ import (
 	"database/sql"
 	"fmt"
 
+	"../../common"
 	"../../secrets"
-	// Import is blank because it currently is only used as a driver
-	_ "github.com/lib/pq"
+	"github.com/lib/pq"
 )
 
 var db *sql.DB
@@ -30,4 +30,23 @@ func Initialize() {
 	if err != nil {
 		panic(err)
 	}
+}
+
+// GetAllArtists returns all artists in the database
+func GetAllArtists() []common.Artist {
+	selectStatement := "SELECT id, name, popularity, recommended FROM artists;"
+	rows, err := db.Query(selectStatement)
+	if err != nil {
+		panic(err)
+	}
+	var artists []common.Artist
+	for rows.Next() {
+		var artist common.Artist
+		err := rows.Scan(&artist.ID, &artist.Name, &artist.Popularity, pq.Array(&artist.Recommended))
+		if err != nil {
+			panic(err)
+		}
+		artists = append(artists, artist)
+	}
+	return artists
 }
