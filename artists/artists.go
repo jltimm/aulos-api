@@ -1,6 +1,11 @@
 package artists
 
-import "net/http"
+import (
+	"encoding/json"
+	"net/http"
+
+	"../io/postgres"
+)
 
 // Handler handles all requests to /artists/
 func Handler() http.Handler {
@@ -13,5 +18,7 @@ func Handler() http.Handler {
 }
 
 func artistsHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("You've hit the artists endpoint!"))
+	w.Header().Set("Content-Type", "application/json")
+	artists := postgres.GetAllArtists()
+	json.NewEncoder(w).Encode(artists)
 }
