@@ -31,11 +31,11 @@ func Initialize() {
 		Logger:             bigcache.DefaultLogger(),
 	}
 	newCache, err := bigcache.NewBigCache(config)
-	cache = newCache
-	fillCache(artists)
 	if err != nil {
 		log.Fatal("error starting cache")
 	}
+	cache = newCache
+	fillCache(artists)
 }
 
 func fillCache(artists []common.Artist) {
