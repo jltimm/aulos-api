@@ -9,6 +9,7 @@ import (
 	"syscall"
 
 	"./artists"
+	"./cache"
 	"./io/postgres"
 )
 
@@ -26,6 +27,7 @@ func main() {
 		os.Exit(1)
 	}()
 	postgres.Initialize()
+	cache.Initialize()
 	http.Handle("/artists/", artists.Handler())
 	log.Fatal("ListenAndServe: ", http.ListenAndServe(":8080", nil))
 }

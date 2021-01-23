@@ -3,6 +3,7 @@ package postgres
 import (
 	"database/sql"
 	"fmt"
+	"log"
 
 	"../../common"
 	"../../secrets"
@@ -18,6 +19,7 @@ func Close() {
 
 // Initialize postgres
 func Initialize() {
+	log.Println("setting up database")
 	var err error
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
 		"password=%s dbname=%s sslmode=disable",
