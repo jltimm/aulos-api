@@ -28,6 +28,7 @@ func main() {
 	}()
 	postgres.Initialize()
 	cache.Initialize()
+	fmt.Println("Starting...")
 	http.Handle("/artists/", artists.Handler())
 	log.Fatal("ListenAndServe: ", http.ListenAndServe(":8080", nil))
 }
