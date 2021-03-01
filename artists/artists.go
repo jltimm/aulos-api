@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"../cache"
+	"../search"
 )
 
 // Handler handles all requests to /artists/
@@ -19,6 +19,6 @@ func Handler() http.Handler {
 
 func artistsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	artists := cache.GetAllEntries()
-	json.NewEncoder(w).Encode(artists)
+	search.FloydWarshall()
+	json.NewEncoder(w).Encode("hello")
 }
