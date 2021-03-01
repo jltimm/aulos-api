@@ -64,3 +64,12 @@ func GetAllEntries() []common.CacheEntry {
 	}
 	return entries
 }
+
+func GetRecommended(key string) []string {
+	entry, _ := cache.Get(key)
+	csv := string(entry[:])
+	if entry != nil && csv != "" {
+		return strings.Split(csv, ",")
+	}
+	return nil
+}
